@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% block content %}
+
+
+<!-- <form action="" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <h3> Form </h3>
+    {{form.as_p}}
+    <input type="submit">
+
+</form> -->
+
+<section class="blog-wrapper sect-pt4" id="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <form action="" class="uniForm" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <br><br>
+
+                    {% for field in form %}
+                    <div class=" form-group">
+                        <label for="exampleInputEmail1"> {{ field.label }} </label>
+                        <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=""> -->
+                        {{ field }}
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyoneelse.</small> -->
+                    </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content%}

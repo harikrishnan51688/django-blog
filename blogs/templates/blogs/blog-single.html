@@ -1,0 +1,193 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ======= Blog Single Section ======= -->
+<section class="blog-wrapper sect-pt4" id="blog">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="post-box">
+          <div class="post-thumb">
+            <img src="{{ blog.featured_image.url }}" class="img-fluid" alt="">
+          </div>
+          <div class="post-meta">
+            <h1 class="article-title"> {{ blog.heading }} </h1>
+            <ul>
+              <li>
+                <span class="bi bi-person"></span>
+                <a href="#">{{ blog.owner.name|slice:'15' }}</a>
+              </li>
+              {% if blog.category is not None %}
+              <li>
+                <span class="bi bi-tag"></span>
+                <a href="#">{{ blog.category }}</a>
+              </li>
+              {% endif %}
+              <li>
+                <span class="bi bi-chat-left-text"></span>
+                <a href="#">{{ blog.comment_total }}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="article-content">
+            <p>
+              {{ blog.discription }}
+            </p>
+          </div>
+              {{ blog.text_field }}
+        </div>
+
+        <div class="box-comments">
+          {% if blog.comment_total is 0 %}
+            <h5>No comments yet!</h5>
+          {% else %}
+            <div class="title-box-2">
+              <h4 class="title-comments title-left">Comment{{ blog.comment_total|pluralize:'s' }} ({{ blog.comment_total }})</h4>
+            </div>
+            <ul class="list-comments">
+
+              {% for comment in blog.comment_set.all %}
+              <li>
+                <div class="comment-avatar">
+                  <img src="{{ comment.gravatar_url }}" alt="image">
+                </div>
+                <div class="comment-details">
+                  <h4 class="comment-author">{{ comment.owner.name|slice:'15' }}</h4>
+                  <span>{{ comment.created }}</span>
+                  <p>
+                    {{ comment.text }}
+                  </p>
+                </div>
+              </li>
+              {% endfor %}
+
+            </ul>
+          {% endif %}
+        </div>
+
+        <div class="form-comments">
+          <div class="title-box-2">
+            <h3 class="title-left">
+              Leave a Reply
+            </h3>
+          </div>
+
+          {% if request.user.is_authenticated %}
+          <form method="POST" , action="">
+            {% csrf_token %}
+            {% for field in commentform %}
+            {{ field }}
+            {% endfor %}
+            <button type="submit" class="button button-a button-big button-rouded">Comment</button>
+          </form>
+          {% else %}
+          <h5><a class="color-blue" href="{% url 'login' %}">Login to comment</a></h5>
+          {% endif %}
+        </div>
+
+
+      </div>
+      <div class="col-md-4">
+        <div class="widget-sidebar sidebar-search">
+          <h5 class="sidebar-title">Search</h5>
+          <div class="sidebar-content">
+            <form>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary btn-search" type="button">
+                    <span class="bi bi-search"></span>
+                  </button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="widget-sidebar">
+          <h5 class="sidebar-title">Recent Post</h5>
+          <div class="sidebar-content">
+            <ul class="list-sidebar">
+
+              {% for article in profile.article_set.all %}
+              {% if blog.heading == article.heading %}
+              <li>
+                <a href="#">{{ article.heading }}</a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'article' article.id %}">{{ article.heading }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+
+            </ul>
+          </div>
+        </div>
+        <!-- <div class="widget-sidebar">
+              <h5 class="sidebar-title">Archives</h5>
+              <div class="sidebar-content">
+                <ul class="list-sidebar">
+                  <li>
+                    <a href="#">September, 2017.</a>
+                  </li>
+                  <li>
+                    <a href="#">April, 2017.</a>
+                  </li>
+                  <li>
+                    <a href="#">Nam quo autem exercitationem.</a>
+                  </li>
+                  <li>
+                    <a href="#">Atque placeat maiores nam quo autem</a>
+                  </li>
+                  <li>
+                    <a href="#">Nam quo autem exercitationem.</a>
+                  </li>
+                </ul>
+              </div>
+            </div> -->
+        {% if length_tags > 0 %}
+        <div class="widget-sidebar widget-tags">
+          <h5 class="sidebar-title">Tags</h5>
+          <div class="sidebar-content">
+            <ul>
+              {% for tag in tags %}
+              <li>
+                <a href="#">{{ tag }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- End Blog Single Section -->
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="copyright-box">
+          <p class="copyright">&copy; Copyright <strong>DevFolio</strong>. All Rights Reserved</p>
+          <!-- <div class="credits"> -->
+          <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=DevFolio
+            -->
+          <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer><!-- End  Footer -->
+
+{% endblock content %}
