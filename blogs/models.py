@@ -1,22 +1,20 @@
 import hashlib
-import imp
-from operator import mod
-from unicodedata import category
 from django.db import models
 import uuid
 from users.models import Profile
 from django_resized import ResizedImageField
+from ckeditor_uploader.fields import RichTextUploadingField
+
 
 # Create your models here.
-
-
 class Article(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.SET_NULL, blank=True, null=True)
     heading = models.CharField(max_length=200)
     discription = models.CharField(max_length=300, null=True, blank=True)
     category = models.CharField(max_length=100, null=True, blank=True)
     featured_image = ResizedImageField(size=[1200,720], null=True, blank=True, default='images/blog_img/no-photo.jpg', upload_to='images/blog_img/')
-    text_field = models.TextField(null=True, blank=True)
+    # text_field = models.TextField(null=True, blank=True)
+    text_field =  RichTextUploadingField(null=True, blank=True)
     tags = models.ManyToManyField('Tag', blank=True)
     comment_total = models.IntegerField(default=0, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

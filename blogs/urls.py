@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -10,6 +10,8 @@ urlpatterns = [
     path('edit-or-delete-posts/', views.edit_or_delete_posts, name='edit-or-delete-posts'),
     path('edit-post/<str:pk>/', views.edit_post, name='edit-post'),
     path('delete-post/<str:pk>/', views.delete_post, name='delete-post'),
+
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
 

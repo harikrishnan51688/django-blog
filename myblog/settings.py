@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     'blogs.apps.BlogsConfig',
     'users.apps.UsersConfig',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 
@@ -142,3 +144,23 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+###################################
+    #  CKEDITOR CONFIGURATION ##
+###################################
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+# CKEDITOR_RESTRICT_BY_USER = 'True'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+}
+
+##################################

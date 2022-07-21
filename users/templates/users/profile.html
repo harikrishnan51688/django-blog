@@ -38,17 +38,19 @@
                         </div>
                     </div>
                     {% if user.is_authenticated %}
-                    <div class="col-md-2">
-                        <a href="{% url 'edit-profile' %}"><button type='button' class="profile-edit-btn" name="btnAddMore">Edit Profile</button></a>
-                    </div>
+                        <div class="col-md-2">
+                            <a href="{% url 'edit-profile' %}"><button type='button' class="profile-edit-btn" name="btnAddMore">Edit Profile</button></a>
+                        </div>
                     {% endif %}
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-work">
-                            <!-- <div class="col-md-1"> -->
-                                <a href="{% url 'edit-or-delete-posts' %}"><button type='button' class="profile-edit-btn" name="btnAddMore">Edit/Delete post</button></a>
-                            <!-- </div> -->
+                            
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'edit-or-delete-posts' %}"><button type='button' class="profile-edit-btn" name="btnAddMore">Edit/Delete post</button></a>
+                        {% endif %}
+                            
                             {% if profile.website_link is not None %}
                             <p>LINKS</p>
                             <a href="{{profile.website_link}}">Website</a><br/>
