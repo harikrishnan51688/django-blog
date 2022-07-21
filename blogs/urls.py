@@ -7,7 +7,9 @@ urlpatterns = [
     path('', views.articles, name='blogs'),
     path('article/<str:pk>/', views.singlearticle, name='article'),
     path('article-form/', views.createarticle, name='createarticle'),
-    # path('commentarticle/', views.commentarticle, name='comment'),
+    path('edit-or-delete-posts/', views.edit_or_delete_posts, name='edit-or-delete-posts'),
+    path('edit-post/<str:pk>/', views.edit_post, name='edit-post'),
+    path('delete-post/<str:pk>/', views.delete_post, name='delete-post'),
 
 ]
 

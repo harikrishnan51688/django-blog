@@ -24,6 +24,8 @@ class Articleform(ModelForm):
     #     for name, field in self.fields.items():
     #         field.widget.attrs.update({'class': 'form-control'})
 
+
+# Comment form using modelform for blog post
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
@@ -33,3 +35,18 @@ class CommentForm(ModelForm):
         super(CommentForm, self).__init__(*args, **kwargs)
 
         self.fields['text'].widget.attrs.update({'class': 'form-group form-control input-mf', 'placeholder': 'Comment*'})
+
+
+# Edit article form and some fields are excluded
+class EditArticleForm(ModelForm):
+    class Meta:
+        model = Article
+        exclude = ['owner', 'comment_total', 'tags']
+        
+    def __init__(self, *args, **kwargs):
+        super(EditArticleForm, self).__init__(*args, **kwargs)
+
+        # self.fields['username'].widget.attrs['readonly'] = True
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})

@@ -5,18 +5,18 @@ from django.template import context
 
 from users.models import Profile
 from .models import Article, Comment
-from .forms import Articleform, CommentForm
+from .forms import Articleform, CommentForm, EditArticleForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 
-
+# Main page all blog posts
 def articles(request):
     blogs = Article.objects.all()
     context = {'blogs': blogs}
     return render(request, 'blogs/main-blog.html', context)
 
-
+# View for individual article and comment form
 def singlearticle(request, pk):
     blog = Article.objects.get(id=pk)
     tags = blog.tags.all()
@@ -42,7 +42,7 @@ def singlearticle(request, pk):
     context = {'blog': blog, 'tags': tags, 'length_tags': length_tags, 'length_articles': length_articles, 'profile': profile, 'commentform': form}
     return render(request, 'blogs/blog-single.html', context)
 
-
+# View for creating article
 @login_required(login_url='login')
 def createarticle(request):
     form = Articleform()
@@ -61,16 +61,32 @@ def createarticle(request):
     context = {'form': form}
     return render(request, 'blogs/article_form.html', context)
 
-# @login_required(login_url='login')
-# def commentarticle(request, pk):
-#     blog = Article.objects.get(id=pk)
-#     form = CommentForm()
-#     if request.method == 'POST':
-#         print(request.POST)
-#         form = CommentForm(request.POST)
-#         if form.is_valid():
-#             form.save()
+# Main page for all post for edit and delete
+@login_required(login_url='login')
+def edit_or_delete_posts(request):
+    profile = request.user.profile
+    articles = profile.article_set.all()
+    context = {'articles': articles}
+    return render(request, 'blogs/edit-or-delete-posts.html', context)
 
-#     context = {'commentform': form, 'blog': blog}
+# Individual page for edit blog post
+@login_required(login_url='login')
+def edit_post(request, pk):
+    blog = Article.objects.get(id=pk)
+    form = EditArticleForm(instance=blog)
+    if request.method == "POST":
+        form = EditArticleForm(request.POST, request.FILES, instance=blog)
+        if form.is_valid:
+            form.save()
+            return redirect('edit-or-delete-posts')
+    context = {"form": form}
+    return render(request, 'blogs/edit-post.html', context)
 
-#     return render('blogs/blog-single.html', context)
+# View for delete blog post
+@login_required(login_url='login')
+def delete_post(request, pk):
+    blog = Article.objects.get(id=pk)
+    if request.method == 'POST':
+        blog.delete()
+        return redirect('edit-or-delete-posts')
+    return render(request, 'blogs/delete-post.html')
