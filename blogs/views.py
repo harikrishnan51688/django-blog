@@ -15,11 +15,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Main page all blog posts
 def articles(request):
     blogs = Article.objects.all()
-    # pagination
+
+    # pagination for main blog page
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(blogs, 6) # 6 employees per page
-
+    paginator = Paginator(blogs, 6) # 6 posts per page
 
     try:
         page_obj = paginator.page(page)
@@ -30,8 +30,7 @@ def articles(request):
         # if the page is out of range, deliver the last page
         page_obj = paginator.page(paginator.num_pages)
 
-
-    context = {'blogs': blogs, 'page_obj': page_obj}
+    context = {'page_obj': page_obj}
     return render(request, 'blogs/main-blog.html', context)
 
 # View for individual article and comment form
@@ -84,7 +83,23 @@ def createarticle(request):
 def edit_or_delete_posts(request):
     profile = request.user.profile
     articles = profile.article_set.all()
-    context = {'articles': articles}
+
+    # pagination for edit or delete page
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(articles, 6) # 6 post per page
+
+
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if the page is out of range, deliver the last page
+        page_obj = paginator.page(paginator.num_pages)
+
+    context = {'page_obj': page_obj}
     return render(request, 'blogs/edit-or-delete-posts.html', context)
 
 # Individual page for edit blog post

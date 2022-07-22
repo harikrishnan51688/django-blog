@@ -8,9 +8,9 @@ body{
     border-radius: 0.5rem;
     background: #fff;
 }
-.profile-img{
+/* .profile-img{
     text-align: center;
-}
+} */
 .profile-img img{
     width: 70%;
     height: 100%;
@@ -68,10 +68,10 @@ body{
     border: none;
     border-bottom:2px solid #0062cc;
 }
-.profile-work{
-    padding: 14%;
-    margin-top: -15%;
-}
+/* .profile-work{ */
+    /* padding: 14%; */
+    /* margin-top: -15%; */
+/* } */
 .profile-work p{
     font-size: 12px;
     color: #818182;

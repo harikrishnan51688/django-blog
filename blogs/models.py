@@ -1,9 +1,11 @@
 import hashlib
+from msilib.schema import Error
 from django.db import models
 import uuid
 from users.models import Profile
 from django_resized import ResizedImageField
 from ckeditor_uploader.fields import RichTextUploadingField
+import readtime
 
 
 # Create your models here.
@@ -24,6 +26,15 @@ class Article(models.Model):
     def __str__(self):
         return self.heading
     
+
+    def get_readtime(self):
+        try: 
+            result = readtime.of_html(self.text_field)
+            minutes = result.minutes
+            return minutes
+        except:
+            return 1
+
 
     @property
     def getcommentcount(self):
