@@ -2,6 +2,7 @@ from dataclasses import field
 from django import forms
 from django.forms import ModelForm
 from .models import Article, Comment
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 class Articleform(ModelForm):
     class Meta:
@@ -39,6 +40,7 @@ class CommentForm(ModelForm):
 
 # Edit article form and some fields are excluded
 class EditArticleForm(ModelForm):
+    text_field = forms.CharField(widget=CKEditorUploadingWidget())
     class Meta:
         model = Article
         exclude = ['owner', 'comment_total', 'tags']
