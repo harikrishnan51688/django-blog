@@ -7,13 +7,31 @@ from users.models import Profile
 from .models import Article, Comment
 from .forms import Articleform, CommentForm, EditArticleForm
 from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Main page all blog posts
 def articles(request):
     blogs = Article.objects.all()
-    context = {'blogs': blogs}
+    # pagination
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(blogs, 6) # 6 employees per page
+
+
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if the page is out of range, deliver the last page
+        page_obj = paginator.page(paginator.num_pages)
+
+
+    context = {'blogs': blogs, 'page_obj': page_obj}
     return render(request, 'blogs/main-blog.html', context)
 
 # View for individual article and comment form

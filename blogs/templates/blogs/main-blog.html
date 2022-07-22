@@ -20,19 +20,21 @@
     </div>
     <div class="row">
 
-      {% for blog in blogs %}
+      {% for blog in page_obj %}
 
       <div class="col-md-4">
-        <div class="card card-blog"> <!-- card h-100 -->  
+        <div class="card card-blog">
+          <!-- card h-100 -->
           <div class="card-img">
-            <a href="{% url 'article' blog.id %}"><img src="{{ blog.featured_image.url }}" alt="" class="img-fluid"></a><!--img-fluid-->
+            <a href="{% url 'article' blog.id %}"><img src="{{ blog.featured_image.url }}" alt="" class="img-fluid"></a>
+            <!--img-fluid-->
           </div>
           <div class="card-body">
-            <div class="card-category-box">              
+            <div class="card-category-box">
               {% if blog.category is not None %}
-                <div class="card-category">
-                  <h6 class="category"> {{ blog.category|slice:"15" }} </h6>
-                </div>
+              <div class="card-category">
+                <h6 class="category"> {{ blog.category|slice:"15" }} </h6>
+              </div>
               {% endif %}
             </div>
             <h3 class="card-title"><a href="{% url 'article' blog.id %}"> {{ blog.heading|slice:"55" }} </a></h3>
@@ -54,6 +56,70 @@
         </div>
       </div>
       {% endfor %}
+    </div>
 
-      <!-- End Blog Section -->
-      {% endblock %}
+    <nav aria-label="Page navigation">
+       <!-- 'pagination-lg' for large pagination  -->
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% if page_obj.number > 3 %}
+        <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+        {% if page_obj.number > 4 %}
+
+        <li class="page-item disabled"><a class="page-link" tabindex="-1" href="#">...</a></li>
+
+        {% endif %}
+        {% endif %}
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %} 
+
+        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>
+
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+        {% elif page_obj.number < page_obj.paginator.num_pages|add:'-2' %} 
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+        {% endif %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next Page</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+</div>
+</section>
+<br>
+
+<!-- ======= Footer ======= -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="copyright-box">
+          <p class="copyright">&copy; Copyright <strong>DevFolio</strong>. All Rights Reserved</p>
+          <!-- <div class="credits"> -->
+          <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=DevFolio
+            -->
+          <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- End  Footer -->
+  
+{% endblock %}

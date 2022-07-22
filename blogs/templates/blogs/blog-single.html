@@ -17,7 +17,7 @@
             <ul>
               <li>
                 <span class="bi bi-person"></span>
-                <a href="#">{{ blog.owner.name|slice:'15' }}</a>
+                <a href="{% url 'profile' blog.owner.id %}">{{ blog.owner.name|slice:'15' }}</a>
               </li>
               {% if blog.category is not None %}
               <li>
