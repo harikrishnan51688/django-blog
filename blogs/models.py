@@ -25,6 +25,13 @@ class Article(models.Model):
 
     def __str__(self):
         return self.heading
+
+    def getimageurl(self):
+        try:
+            url = self.featured_image.url
+        except:
+            url = ''
+        return url
     
 
     def get_readtime(self):

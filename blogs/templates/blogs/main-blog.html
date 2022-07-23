@@ -26,7 +26,7 @@
         <div class="card card-blog">
           <!-- card h-100 -->
           <div class="card-img">
-            <a href="{% url 'article' blog.id %}"><img src="{{ blog.featured_image.url }}" alt="" class="img-fluid"></a>
+            <a href="{% url 'article' blog.id %}"><img src="{{ blog.getimageurl }}" alt="" class="img-fluid"></a>
             <!--img-fluid-->
           </div>
           <div class="card-body">

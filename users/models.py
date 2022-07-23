@@ -22,5 +22,11 @@ class Profile(models.Model):
         return str(self.username)
 
 
+    def getimageurl(self):
+        try:
+            url = self.profile_image.url
+        except:
+            url = ''
+        return url
 
 

@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="{{ profile.profile_image.url }}" alt="profile-image"/>
+                            <img src="{{ profile.getimageurl }}" alt="profile-image"/>
                             <!-- <div class="file btn btn-lg btn-primary"> -->
                                 <!-- Change Photo -->
                                 <!-- <input type="file" name="file"/> -->
@@ -19,7 +19,7 @@
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                        {{ profile.name }}
+                                        {{ profile.user.username }}
                                     </h5>
                                     <h6>
                                         {% if profile.profession is not None %}
