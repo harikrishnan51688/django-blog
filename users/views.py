@@ -27,7 +27,7 @@ def loginuser(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Succesfully logged in')
-            return redirect('blogs')
+            return redirect(request.GET['next'] if 'next' in request.GET else 'blogs')
         else:
             messages.error(request, 'Username or Password is incorrect')
     context = {"page":page}

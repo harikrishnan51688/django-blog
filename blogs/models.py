@@ -1,4 +1,5 @@
 import hashlib
+import imp
 from django.db import models
 import uuid
 from users.models import Profile
