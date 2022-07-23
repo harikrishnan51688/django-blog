@@ -81,5 +81,5 @@ def editprofile(request):
             form.save()
             return redirect('blogs')
 
-    context = {'form':form,'profile': profile, 'articles': articles, 'blog_count': len(count),}
+    context = {'form':form,'profile': profile, 'articles': articles, 'blog_count': len(count)}
     return render(request, 'users/edit-profile.html', context)

@@ -123,3 +123,7 @@ def delete_post(request, pk):
         blog.delete()
         return redirect('edit-or-delete-posts')
     return render(request, 'blogs/delete-post.html')
+
+
+def page_not_found_view(request, exception):
+    return render(request, '404.html', status=404)

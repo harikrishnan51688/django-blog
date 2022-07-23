@@ -24,5 +24,5 @@ urlpatterns = [
     path('', include('blogs.urls')),
  
     # path('ckeditor/', include('ckeditor_uploader.urls')),
-
 ]
+handler404 = 'blogs.views.page_not_found_view'
