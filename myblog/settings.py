@@ -166,7 +166,7 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'AYdPsWELWJJw2EsUTmzjaJbFQ78'      #os.environ.get('CLOUDINARY_API_SECRET'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # Default primary key field type
