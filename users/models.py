@@ -13,7 +13,7 @@ class Profile(models.Model):
     profile_image = ResizedImageField(size=[250, 250], blank=True, null=True, default='images/profile_img/default.jpg', upload_to='images/profile_img/')
     short_intro = models.CharField(max_length=600, null=True, blank=True)
     website_link = models.URLField(max_length=800, null=True, blank=True)
-    phone = models.PositiveIntegerField(null=True, blank=True, validators=[MaxValueValidator(9999999999)])
+    phone = models.PositiveIntegerField(null=True, blank=True)#, validators=[MaxValueValidator(9999999999)])
     profession = models.CharField(max_length=20, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)

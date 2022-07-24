@@ -46,7 +46,7 @@
             <div class="post-author">
               <a href="{% url 'profile' blog.owner.id %}">
                 <img src="{{ blog.owner.getimageurl }}" alt="" class="avatar rounded-circle">
-                <span class="author"> {{ blog.owner.name|slice:"20" }} </span>
+                <span class="author"> {{ blog.owner.username|slice:"20" }} </span>
               </a>
             </div>
             <div class="post-date">
