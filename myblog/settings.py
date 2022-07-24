@@ -100,10 +100,10 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dea1437kbl5ng',
-        'USER': 'vnazolvyoxhjhb',
-        'PASSWORD': '242a0ce33d1c03349c700202f6261c5c0cbc31af2122d5790f76c4780ae65783',
-        'HOST': 'ec2-54-161-255-125.compute-1.amazonaws.com',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
         'PORT': '5432'
     }
 }
@@ -161,9 +161,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 ## CLOUDINARY STORAGE CONFIGURATION ##
 ###################################
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'django-simpleblog',
-    'API_KEY': '111391241176833',                    #os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': 'AYdPsWELWJJw2EsUTmzjaJbFQ78'      #os.environ.get('CLOUDINARY_API_SECRET'),
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),                  
+    'API_SECRET': os.environ.get('API_SECRET')      
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

@@ -105,7 +105,8 @@ def edit_or_delete_posts(request):
 # Individual page for edit blog post
 @login_required(login_url='login')
 def edit_post(request, pk):
-    blog = Article.objects.get(id=pk)
+    profile = request.user.profile
+    blog = profile.article_set.get(id=pk)
     form = EditArticleForm(instance=blog)
     if request.method == "POST":
         form = EditArticleForm(request.POST, request.FILES, instance=blog)
@@ -118,7 +119,8 @@ def edit_post(request, pk):
 # View for delete blog post
 @login_required(login_url='login')
 def delete_post(request, pk):
-    blog = Article.objects.get(id=pk)
+    profile = request.user.profile
+    blog = profile.article_set.get(id=pk)
     if request.method == 'POST':
         blog.delete()
         return redirect('edit-or-delete-posts')
@@ -127,7 +129,8 @@ def delete_post(request, pk):
 # View for delete comment 
 @login_required(login_url='login')
 def delete_comment(request, pk):
-    comment = Comment.objects.get(id=pk)
+    profile = request.user.profile
+    comment = profile.comment_set.get(id=pk)
     if request.method == 'POST':
         comment.delete()
         return redirect(request.GET['next'] if 'next' in request.GET else 'blogs')
