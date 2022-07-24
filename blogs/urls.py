@@ -13,6 +13,7 @@ urlpatterns = [
     path('edit-or-delete-posts/', views.edit_or_delete_posts, name='edit-or-delete-posts'),
     path('edit-post/<str:pk>/', views.edit_post, name='edit-post'),
     path('delete-post/<str:pk>/', views.delete_post, name='delete-post'),
+    path('delete-comment/<str:pk>/', views.delete_comment, name='delete-comment'),
 
     # path('ckeditor/', include('ckeditor_uploader.urls')),
     path('ckeditor/upload/', login_required(ckeditor_views.upload), name='ckeditor_upload'),

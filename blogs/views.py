@@ -124,6 +124,14 @@ def delete_post(request, pk):
         return redirect('edit-or-delete-posts')
     return render(request, 'blogs/delete-post.html')
 
+# View for delete comment 
+@login_required(login_url='login')
+def delete_comment(request, pk):
+    comment = Comment.objects.get(id=pk)
+    if request.method == 'POST':
+        comment.delete()
+        return redirect(request.GET['next'] if 'next' in request.GET else 'blogs')
+    return render(request, 'blogs/delete-comment.html')
 
 def page_not_found_view(request, exception):
     return render(request, '404.html', status=404)

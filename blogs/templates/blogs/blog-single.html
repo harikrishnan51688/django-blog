@@ -55,10 +55,15 @@
                 </div>
                 <div class="comment-details">
                   <h4 class="comment-author">{{ comment.owner.name|slice:'15' }}</h4>
-                  <span>{{ comment.created }}</span>
+                  <span>{{ comment.created }}</span>  
                   <p>
                     {{ comment.text }}
                   </p>
+                  {% if user.is_authenticated %}
+                    {% if comment.owner.username == user.get_username %}
+                    <a href="{% url 'delete-comment' comment.id%}?next=/article/{{ comment.article.id }}/">Delete</a>
+                    {% endif %}
+                  {% endif %}
                 </div>
               </li>
               {% endfor %}
