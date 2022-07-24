@@ -68,7 +68,7 @@ def createarticle(request):
     if request.method == 'POST':
         print(request.POST)
         form = Articleform(request.POST, request.FILES)
-        if form.is_valid():
+        if form.is_valid:
             article = form.save(commit=False)
             article.owner = profile
             article.save()

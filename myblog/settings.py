@@ -198,4 +198,6 @@ CKEDITOR_IMAGE_QUALITY = 20
 # CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 ##################################
 
+DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
+
 
