@@ -166,7 +166,7 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'AYdPsWELWJJw2EsUTmzjaJbFQ78'      #os.environ.get('CLOUDINARY_API_SECRET'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 
 
 # Default primary key field type
@@ -181,7 +181,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ###################################
 
 CKEDITOR_UPLOAD_PATH = 'uploads-ckeditor/'
-CKEDITOR_IMAGE_BACKEND = "pillow"
+# CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_FORCE_JPEG_COMPRESSION = True
