@@ -1,3 +1,4 @@
+from email.policy import default
 import hashlib
 import imp
 from django.db import models
@@ -6,7 +7,7 @@ from users.models import Profile
 from django_resized import ResizedImageField
 from ckeditor_uploader.fields import RichTextUploadingField
 import readtime
-
+from autoslug import AutoSlugField
 
 # Create your models here.
 class Article(models.Model):
@@ -20,6 +21,7 @@ class Article(models.Model):
     tags = models.ManyToManyField('Tag', blank=True)
     comment_total = models.IntegerField(default=0, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
+    slug = AutoSlugField(unique=True, default=None, populate_from='heading')
     id = models.UUIDField(default=uuid.uuid4,
                           primary_key=True, editable=False, unique=True)
 
